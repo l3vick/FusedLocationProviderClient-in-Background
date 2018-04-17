@@ -11,7 +11,9 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -28,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     private ArrayAdapter<String> adapter;
     private List<String> locationList;
     private LocationBroadcastReceiver locationBroadcastReceiver;
+    private Button btnPause;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +43,13 @@ public class MainActivity extends AppCompatActivity {
         adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, android.R.id.text1, locationList);
         list.setAdapter(adapter);
+        btnPause = findViewById(R.id.btn_pause);
+        btnPause.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                stopLocationService();
+            }
+        });
 
         locationBroadcastReceiver = new LocationBroadcastReceiver();
 
@@ -50,7 +60,6 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
 
         LocalBroadcastManager.getInstance(this).registerReceiver(locationBroadcastReceiver, new IntentFilter(ACTION));
-
 
         /**
          * Runtime permissions are required on Android M and above to access User's location
@@ -70,9 +79,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void startLocationService() {
-        Intent serviceIntent = new Intent(this, LocationService.class);
-        startService(serviceIntent);
+        startService(new Intent(this, LocationService.class));
+    }
 
+    private void stopLocationService() {
+        stopService(new Intent(this, LocationService.class ));
     }
 
     @Override

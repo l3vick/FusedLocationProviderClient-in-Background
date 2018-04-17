@@ -144,7 +144,6 @@ public class LocationService extends Service implements  GoogleApiClient.Connect
 
 
     protected void stopLocationUpdates() {
-
         LocationServices.FusedLocationApi.removeLocationUpdates(googleApiClient, this);
     }
 
