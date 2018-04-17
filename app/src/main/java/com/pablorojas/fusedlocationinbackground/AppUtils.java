@@ -16,6 +16,11 @@ public class AppUtils {
 
     public static  final String ACTION = "LOCATION_ACTION";
     public static final String MESSAGE = "LOCATION_DATA";
+    public static String DISTANCE = "DISTANCE";
+
+    public static final long UPDATE_INTERVAL_IN_MILLISECONDS = 5000;
+    public static final long FASTEST_UPDATE_INTERVAL_IN_MILLISECONDS = 1000;
+    public static final int ACCURACY_THRESHOLD = 100;
 
     public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
 
